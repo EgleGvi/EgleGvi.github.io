@@ -1,0 +1,51 @@
+.container {
+    height: 100vh;
+    overflow: auto;
+    background-color: lightgray;
+}
+
+#queue-form {
+    border: 2px solid darkgray;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 30vh;
+}
+
+label {
+    margin-bottom: 0;
+}
+
+.btn-primary {
+    width: 50%;
+    margin-left: 25%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    text-align: center;
+}
+
+.table-wrapper {
+    margin-top: 10vh;
+}
+
+.one-table {
+    width: 23%;
+    height: auto;
+    margin: 10px;
+}
+
+.all-table {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+/*.table th {*/
+/*    padding-left: 0;*/
+/*    padding-right: 0;*/
+/*}*/
