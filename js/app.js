@@ -1,6 +1,4 @@
 $(document).ready(function(){
-    loadContent("admin.html");
-    loadSpecialistsInToAdminPage();
     localStorageDebug();
     //window.localStorage.clear();
 });
@@ -59,4 +57,7 @@ function loadFile() {
 
 function loadContent(htmlFile) {
     $(".container").load(htmlFile);
+    if(htmlFile === "admin.html") {
+        loadSpecialistsInToAdminPage();
+    }
 }
