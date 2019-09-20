@@ -45,7 +45,32 @@ th, td {
     flex-flow: wrap;
 }
 
-/*.table th {*/
-/*    padding-left: 0;*/
-/*    padding-right: 0;*/
-/*}*/
+button#btn-admin-js, #btn-dashboard-js, #btn-specialists-js {
+    height: 50px;
+    width: 150px;
+    margin-left: 20px;
+    margin-top: 20%;
+}
+
+.file-center {
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+
+input#btnLoad {
+    width: 100px;
+    height: 35px;
+    border: none;
+    background-color: blue;
+    border-radius: 5px;
+    color: white;
+}
+
+input#fileinput {
+    width: 300px;
+}
+
+.file-input {
+    text-align: center;
+}

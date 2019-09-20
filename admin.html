@@ -1,13 +1,17 @@
 <div class="row">
-    <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
-
-        <fieldset>
-            <h2>Json File</h2>
-            <input type='file' id='fileinput'>
-            <input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
-        </fieldset>
-    </form>
-
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+            <fieldset>
+                <h3 class="file-center">Įkelti failą</h3>
+                <div class="file-input">
+                    <input type="file" id="fileinput">
+                    <input type="button" id="btnLoad" value="Įkelti" onclick="loadFile();">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
 </div>
 <div class="row">
     <div class="col-md-4"></div>
