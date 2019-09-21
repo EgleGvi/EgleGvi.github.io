@@ -1,3 +1,14 @@
 {
-  "specialists": ["Vardenis Pavardenis", "Ona Onute", "Petras Petraitis", "Jonas Jonaitis"]
+  "specialists": ["Vardenis Pavardenis", "Ona Onute", "Petras Petraitis", "Jonas Jonaitis", "Maryte Marijauskaite"],
+  "queues": [
+    {"service": "Vardenis Pavardenis", "queueNumber": 2, "finished": false},
+    {"service": "Vardenis Pavardenis", "queueNumber": 8, "finished": false},
+    {"service": "Ona Onute", "queueNumber": 5, "finished": false},
+    {"service": "Vardenis Pavardenis", "queueNumber": 6, "finished": false},
+    {"service": "Jonas Jonaitis", "queueNumber": 1, "finished": false},
+    {"service": "Jonas Jonaitis", "queueNumber": 2, "finished": false},
+    {"service": "Petras Petraitis", "queueNumber": 52, "finished": false},
+    {"service": "Petras Petraitis", "queueNumber": 74, "finished": false},
+    {"service": "Petras Petraitis", "queueNumber": 42, "finished": true}
+  ]
 }
