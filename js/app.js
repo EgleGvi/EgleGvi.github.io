@@ -134,7 +134,12 @@ $(document).on('click', function (event) {
 
         var waitTime = msToTime((totalTimeSpent / finishedCount) * peopleInFront);
 
-        resultElement.html("Priekyje Jūsų yra " + peopleInFront + " žmogus(-ės). Apytikslis laukimo laikas: " + waitTime);
+
+        if(finishedCount === 0 || totalTimeSpent === 0) {
+            resultElement.html("Priekyje Jūsų yra " + peopleInFront + " žmogus(-ės). Laukimo laikas nežinomas.");
+        } else {
+            resultElement.html("Priekyje Jūsų yra " + peopleInFront + " žmogus(-ės). Apytikslis laukimo laikas: " + waitTime);
+        }
     }
 });
 

@@ -34,6 +34,6 @@ Pasirinkus specialistą bei įvedus savo eilės numerį, pamatomas rezultatas. G
 * Kliento eilė jau praėjo (numeris jau aptarnautas)
 * Kliento eilėje nėra (toks numeris pas specialistą neužregistruotas)
 * Šiuo metu yra kliento eilė
-* Klientas yra X-asis eilėje. Jo laukimo laikas Y.
+* Klientas yra X-asis eilėje. Jo laukimo laikas Y. (Jeigu įmanoma suskaičiuoti iš turimų duomenų)
 
 
