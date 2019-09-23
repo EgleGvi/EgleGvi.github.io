@@ -20,21 +20,27 @@ function getQueueDataGroupedBySpecialist(){
     if(specialists === []) {
         return [];
     }
-    var sortedData = [];
+    var groupedData = [];
     specialists.forEach(function (specialist) {
-        sortedData[specialist] = [];
+        groupedData[specialist] = [];
     });
     var queueData = readFromLocalStorage(LOCAL_STORAGE_QUEUE);
     if(queueData === []) {
         return [];
     }
     queueData.forEach(function(queue){
-        if(sortedData[queue.service] === undefined) {
-            sortedData[queue.service] = [];
+        if(groupedData[queue.service] === undefined) {
+            groupedData[queue.service] = [];
         }
-        sortedData[queue.service].push({"queueNumber" : queue.queueNumber, "finished" : queue.finished});
+        groupedData[queue.service].push({"queueNumber" : queue.queueNumber, "finished" : queue.finished, "addedAt": queue.addedAt, "removedAt": queue.removedAt});
     });
-    return sortedData;
+
+    for (var specialist in groupedData) {
+        var queueArray = groupedData[specialist];
+        groupedData[specialist] = queueArray.sort((a,b) => a.queueNumber - b.queueNumber);
+    }
+
+    return groupedData;
 }
 
 
@@ -53,7 +59,8 @@ $(document).on('submit', function (event) {
         event.preventDefault();
         var service = $(document.getElementById("service")).val();
         var queueNumber = $(document.getElementById("queue-number")).val();
-        addToQueue(service, queueNumber);
+        addToQueue(service, queueNumber, false, new Date(), null);
+        showSuccessAlert("Eilės numeris "+ queueNumber + " sėkmingai pridėtas specialistui " + service + ".");
     }
 });
 
@@ -71,6 +78,63 @@ $(document).on('click', function (event) {
         var queueNumber = Number(target.attr("queue-number"));
         finishQueue(specialist, queueNumber);
         loadSelectedSpecialistQueue();
+    } else if(target.is('#client-info-js')){
+        var service = $(document.getElementById("service")).val();
+        var queueNumber = Number($(document.getElementById("queue-number")).val());
+        var sortedData = getQueueDataGroupedBySpecialist();
+        var queue = sortedData[service];
+        var resultElement = $(document.getElementById("client-result-js"));
+
+        var found = false;
+        var foundFinished = false;
+        var peopleInFront = 0;
+        for (var index in queue) {
+            if(queue[index].queueNumber === queueNumber) {
+                found = true;
+                if(queue[index].finished) {
+                    foundFinished = true;
+                }
+                break;
+            }
+            if(!queue[index].finished) {
+                peopleInFront++;
+            }
+        }
+
+        if(!found) {
+            resultElement.html("Jūsų eilėje nėra.");
+            return;
+        }
+
+        if(foundFinished) {
+            resultElement.html("Jūsų eilė jau praėjo.");
+            return;
+        }
+
+        if(peopleInFront === 0) {
+            resultElement.html("Dabar yra Jūsų eilė.");
+            return;
+        }
+
+        var finishedCount = 0;
+        var totalTimeSpent = 0;
+
+        for (var index in queue) {
+            if(queue[index].addedAt === null || queue[index].removedAt === null) {
+                continue;
+            }
+            var addedAt = new Date(queue[index].addedAt);
+            var removedAt = new Date(queue[index].removedAt);
+
+            if(queue[index].finished && removedAt.getTime() > addedAt.getTime()) {
+                finishedCount++;
+                totalTimeSpent += removedAt - addedAt;
+            }
+        }
+
+        var waitTime = msToTime((totalTimeSpent / finishedCount) * peopleInFront);
+
+        resultElement.html("Priekyje Jūsų yra " + peopleInFront + " žmogus(-ės). Apytikslis laukimo laikas: " + waitTime);
     }
 });
 
@@ -85,19 +149,19 @@ function loadFile() {
     var input, file, fr;
 
     if (typeof window.FileReader !== 'function') {
-        alert("The file API isn't supported on this browser yet.");
+        showErrorAlert("Nepavyko įkelti duomenų failo.");
         return;
     }
 
     input = document.getElementById('fileinput');
     if (!input) {
-        alert("Um, couldn't find the fileinput element.");
+        showErrorAlert("Nepavyko įkelti duomenų failo.");
     }
     else if (!input.files) {
-        alert("This browser doesn't seem to support the `files` property of file inputs.");
+        showErrorAlert("Nepavyko įkelti duomenų failo.");
     }
     else if (!input.files[0]) {
-        alert("Please select a file before clicking 'Load'");
+        showErrorAlert("Nepavyko įkelti duomenų failo.");
     }
     else {
         file = input.files[0];
@@ -113,6 +177,7 @@ function loadFile() {
         storeSpecialists(data.specialists);
         storeQueue(data.queues);
         loadServiceDropdown();
+        showSuccessAlert("Pavyzdiniai duomenys sėkmingai įkelti.");
     }
 }
 
@@ -131,6 +196,9 @@ function loadContent(htmlFile) {
                 loadDashboardPageData();
                 beginDashboardRefresh();
                 break;
+            case "client.html":
+                loadServiceDropdown ();
+                break;
             default:
                 break;
         }
@@ -146,9 +214,9 @@ function drawQueueTable(specialist, queue, showServiceButton = false) {
         }
         if (!printedFirstRow){
             if(showServiceButton) {
-                html += '<tr><td>'+queue[i].queueNumber + ' Aptarnaujama <button specialist="'+specialist+'" queue-number="'+queue[i].queueNumber+'" id="service-finish">Aptarnauta</button></td></tr>';
+                html += '<tr class="queue-finished"><td>'+queue[i].queueNumber + ' <button specialist="'+specialist+'" queue-number="'+queue[i].queueNumber+'" id="service-finish">Aptarnauta</button></td></tr>';
             } else {
-                html += '<tr><td>'+queue[i].queueNumber + ' Aptarnaujama</td></tr>';
+                html += '<tr class="queue-finished"><td>'+queue[i].queueNumber + '</td></tr>';
             }
 
             printedFirstRow = true;
@@ -168,4 +236,37 @@ function beginDashboardRefresh() {
     window.setInterval(function(){
         loadDashboardPageData();
     }, 5000);
+}
+
+function showSuccessAlert(message) {
+    var alertElement = $('#alert-success-js');
+    alertElement.html(message);
+    alertElement.removeAttr('hidden');
+    setTimeout(function() {
+        alertElement.html("");
+        alertElement.attr("hidden", "hidden");
+    }, 5000);
+}
+
+function showErrorAlert(message) {
+    var alertElement = $('#alert-error-js');
+    alertElement.html(message);
+    alertElement.removeAttr('hidden');
+    setTimeout(function() {
+        alertElement.html("");
+        alertElement.attr("hidden", "hidden");
+    }, 5000);
+}
+
+function msToTime(duration) {
+    var milliseconds = parseInt((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds;
 }

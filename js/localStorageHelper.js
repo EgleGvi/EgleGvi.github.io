@@ -9,12 +9,14 @@ function readFromLocalStorage (key){
     return JSON.parse(data);
 }
 
-function addToQueue (service, queueNumber, finished = false) {
+function addToQueue (service, queueNumber, finished, addedAt = null, removedAt = null) {
     var queueData = readFromLocalStorage(LOCAL_STORAGE_QUEUE);
     var newItem = {
         'service': service,
         'queueNumber': Number(queueNumber),
-        'finished': finished
+        'finished': finished,
+        'addedAt': addedAt,
+        'removedAt': removedAt
     };
     queueData.push(newItem);
     window.localStorage.setItem(LOCAL_STORAGE_QUEUE, JSON.stringify(queueData));
@@ -25,6 +27,7 @@ function finishQueue (service, queueNumber) {
     queueData.forEach(function (data) {
         if (data.service === service && data.queueNumber === queueNumber && data.finished === false) {
             data.finished = true;
+            data.removedAt = new Date();
         }
     });
     window.localStorage.setItem(LOCAL_STORAGE_QUEUE, JSON.stringify(queueData));
@@ -36,7 +39,7 @@ function storeSpecialists(specialists) {
 
 function storeQueue (queues) {
     queues.forEach(function(queue){
-        addToQueue(queue.service, queue.queueNumber, queue.finished);
+        addToQueue(queue.service, queue.queueNumber, queue.finished, queue.addedAt, queue.removedAt);
     });
 }
 

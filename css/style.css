@@ -8,7 +8,7 @@
     border: 2px solid darkgray;
     border-radius: 15px;
     padding: 20px;
-    margin-top: 30vh;
+    margin-top: 10vh;
 }
 
 label {
@@ -45,16 +45,16 @@ th, td {
     flex-flow: wrap;
 }
 
-button#btn-admin-js, #btn-dashboard-js, #btn-specialists-js {
+button#btn-admin-js, #btn-dashboard-js, #btn-specialists-js, #btn-client-js {
     height: 50px;
     width: 150px;
     margin-left: 20px;
-    margin-top: 20%;
+    margin-top: 15%;
 }
 
 .file-center {
     text-align: center;
-    margin-top: 10%;
+    margin-top: 15%;
     margin-bottom: 5%;
 }
 
@@ -68,9 +68,46 @@ input#btnLoad {
 }
 
 input#fileinput {
-    width: 300px;
+    width: 390px;
 }
 
 .file-input {
     text-align: center;
+}
+
+.specialist-text-center {
+    margin-left: 40px;
+}
+
+.form-control {
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+.queue-finished {
+    background-color: dodgerblue;
+}
+
+#service-finish {
+    width: 90px;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    border: none;
+    float: right;
+}
+
+.client-num {
+    margin: 10px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.client-num-center {
+    text-align: center;
+}
+
+.btn-client {
+    width: 60%;
+    margin-left: 0;
 }

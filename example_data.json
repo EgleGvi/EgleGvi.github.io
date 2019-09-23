@@ -1,14 +1,14 @@
 {
   "specialists": ["Vardenis Pavardenis", "Ona Onute", "Petras Petraitis", "Jonas Jonaitis", "Maryte Marijauskaite"],
   "queues": [
-    {"service": "Vardenis Pavardenis", "queueNumber": 2, "finished": false},
-    {"service": "Vardenis Pavardenis", "queueNumber": 8, "finished": false},
-    {"service": "Ona Onute", "queueNumber": 5, "finished": false},
-    {"service": "Vardenis Pavardenis", "queueNumber": 6, "finished": false},
-    {"service": "Jonas Jonaitis", "queueNumber": 1, "finished": false},
-    {"service": "Jonas Jonaitis", "queueNumber": 2, "finished": false},
-    {"service": "Petras Petraitis", "queueNumber": 52, "finished": false},
-    {"service": "Petras Petraitis", "queueNumber": 74, "finished": false},
-    {"service": "Petras Petraitis", "queueNumber": 42, "finished": true}
+    {"service": "Vardenis Pavardenis", "queueNumber": 2, "finished": false, "addedAt" : "2019-09-23T14:20:20.000Z", "removedAt": null},
+    {"service": "Vardenis Pavardenis", "queueNumber": 8, "finished": false, "addedAt" : "2019-09-23T13:59:12.000Z", "removedAt": null},
+    {"service": "Ona Onute", "queueNumber": 5, "finished": false, "addedAt" : "2019-09-23T14:28:55.000Z", "removedAt": null},
+    {"service": "Vardenis Pavardenis", "queueNumber": 6, "finished": false, "addedAt" : "2019-09-23T14:33:00.000Z", "removedAt": null},
+    {"service": "Jonas Jonaitis", "queueNumber": 1, "finished": false, "addedAt" : "2019-09-23T15:01:55.000Z", "removedAt": null},
+    {"service": "Jonas Jonaitis", "queueNumber": 2, "finished": false, "addedAt" : "2019-09-23T14:22:20.000Z", "removedAt": null},
+    {"service": "Petras Petraitis", "queueNumber": 52, "finished": false, "addedAt" : "2019-09-23T13:58:06.000Z", "removedAt": null},
+    {"service": "Petras Petraitis", "queueNumber": 74, "finished": false, "addedAt" : "2019-09-23T15:10:00.000Z", "removedAt": null},
+    {"service": "Petras Petraitis", "queueNumber": 42, "finished": true, "addedAt" : "2019-09-23T14:20:20.000Z", "removedAt": "2019-09-23T14:25:00.000Z"}
   ]
 }

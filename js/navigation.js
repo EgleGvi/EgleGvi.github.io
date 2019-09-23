@@ -9,3 +9,7 @@ $('#btn-dashboard-js').on('click', function () {
 $('#btn-specialists-js').on('click', function () {
     loadContent('specialist.html');
 });
+
+$('#btn-client-js').on('click', function () {
+    loadContent('client.html');
+});
